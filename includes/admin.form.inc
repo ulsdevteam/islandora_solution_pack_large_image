@@ -31,6 +31,12 @@ function islandora_large_image_admin(array $form, array &$form_state) {
       '#default_value' => $get_default_value('islandora_lossless', FALSE),
       '#description' => t('Lossless derivatives are of higher quality but adversely affect browser performance.'),
     ),
+    'islandora_convert_rgb8' => array(
+      '#type' => 'checkbox',
+      '#title' => t("Convert source to RGB 8 bit prior to creating JP2 datastreams"),
+      '#default_value' => $get_default_value('islandora_convert_rgb8', FALSE),
+      '#description' => t('Normalization of source images by converting to an uncompressed RGB 8-bit depth TIFF for processing.  This does not replace the original source.'),
+    ),
     // Defaults to trying to use Kakadu if ImageMagick does not support JP2Ks.
     'islandora_use_kakadu' => array(
       '#type' => 'checkbox',
