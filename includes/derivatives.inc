@@ -39,6 +39,7 @@ function islandora_large_image_get_uploaded_file(AbstractObject $object) {
 function islandora_large_image_create_jp2_derivative(AbstractObject $object, $force = TRUE) {
   module_load_include('inc', 'islandora_large_image', 'includes/utilities');
   $base_name = str_replace(':', '-', $object->id);
+  $normalized_src = '';
   if ($force || !isset($object['JP2'])) {
     $to_return = array(
       'success' => FALSE,
@@ -72,6 +73,18 @@ function islandora_large_image_create_jp2_derivative(AbstractObject $object, $fo
           ($height < 1024 || $width < 1024)) {
           $lossless = TRUE;
         }
+      }
+
+      if (variable_get('islandora_convert_rgb8', FALSE) && $depth < 8) {
+        // Make a copy of the source that can change
+        $uploaded_file = str_replace("temporary://", file_directory_temp() . '/', $uploaded_file);
+        $normalized_src = file_create_filename(drupal_basename($uploaded_file) . ".tif", file_directory_temp());
+        $normalized_src = str_replace("temporary://", file_directory_temp() . '/', $normalized_src);
+        $convert_command = 'convert ' . $uploaded_file . ' -compress None -resample 300x300 -depth 8 ' . $normalized_src;
+        $output = array();
+        exec($convert_command, $output, $ret);
+        @unlink($uploaded_file);
+        $uploaded_file = $normalized_src;
       }
 
       if ($kakadu) {
@@ -134,6 +147,9 @@ function islandora_large_image_create_jp2_derivative(AbstractObject $object, $fo
     }
     file_unmanaged_delete($uploaded_file);
     file_unmanaged_delete($derivative_file);
+    if ($normalized_src) {
+      file_unmanaged_delete($normalized_src);
+    }
     return $to_return;
   }
 }
