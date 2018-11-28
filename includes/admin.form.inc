@@ -35,8 +35,7 @@ function islandora_large_image_admin(array $form, array &$form_state) {
       '#type' => 'checkbox',
       '#title' => t("If source is less than 8 bit, convert it to RGB 8 bit prior to creating JP2 datastreams"),
       '#default_value' => $get_default_value('islandora_convert_rgb8', FALSE),
-      '#description' => t('Normalization of source images by converting to an uncompressed RGB 8-bit depth TIFF for processing.  ' . 
-                          'This does not replace the original source datastream, but only makes a copy of it for derivative generation.'),
+      '#description' => t('Normalization of source images by converting to an uncompressed RGB 8-bit depth TIFF for processing.  This does not replace the original source datastream, but only makes a copy of it for derivative generation.'),
     ),
     // Defaults to trying to use Kakadu if ImageMagick does not support JP2Ks.
     'islandora_use_kakadu' => array(

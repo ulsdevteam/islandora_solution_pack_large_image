@@ -76,7 +76,7 @@ function islandora_large_image_create_jp2_derivative(AbstractObject $object, $fo
       }
 
       if (variable_get('islandora_convert_rgb8', FALSE) && $depth < 8) {
-        // Make a copy of the source that can change
+        // Make a copy of the source that can change.
         $uploaded_file = str_replace("temporary://", file_directory_temp() . '/', $uploaded_file);
         $normalized_src = file_create_filename(drupal_basename($uploaded_file) . ".tif", file_directory_temp());
         $normalized_src = str_replace("temporary://", file_directory_temp() . '/', $normalized_src);
