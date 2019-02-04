@@ -85,7 +85,7 @@ function islandora_large_image_create_jp2_derivative(AbstractObject $object, $fo
         $uploaded_file = str_replace("temporary://", file_directory_temp() . '/', $uploaded_file);
         $normalized_src = file_create_filename(drupal_basename($uploaded_file) . ".tif", file_directory_temp());
         $normalized_src = str_replace("temporary://", file_directory_temp() . '/', $normalized_src);
-        $convert_command = 'convert ' . $uploaded_file . ' -compress None -resample 300x300 -depth 8 ' . $normalized_src;
+        $convert_command = 'convert ' . $uploaded_file . ' -compress None -depth 8 ' . $normalized_src;
         $output = array();
         exec($convert_command, $output, $ret);
         @unlink($uploaded_file);
