@@ -15,6 +15,11 @@
  *   The file path to the temp file if successful, FALSE otherwise.
  */
 function islandora_large_image_get_uploaded_file(AbstractObject $object) {
+  if (module_exists('islandora_wait_for_object')) {
+    module_load_include('module', 'islandora_wait_for_object');
+    $proceed = islandora_wait_for_object_test($object, 'OBJ');
+    if (!$proceed) { return ''; }
+  }
   $base_name = str_replace(':', '-', $object->id);
   $mime_detector = new MimeDetect();
   $ext = $mime_detector->getExtension($object['OBJ']->mimeType);
