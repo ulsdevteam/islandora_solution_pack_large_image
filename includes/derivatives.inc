@@ -465,7 +465,8 @@ function islandora_large_image_get_args($lossless) {
     $args[] = "-define numrlvls=7";
     $args[] = "-define jp2:tilewidth=1024";
     $args[] = "-define jp2:tileheight=1024";
-    $args[] = "-define jp2:rate=0.02348";
+    $args[] = "-define jp2:rate=0.16667";
+//    $args[] = "-define jp2:rate=0.02348";
     $args[] = "-define jp2:prg=rpcl";
     $args[] = "-define jp2:mode=int";
     $args[] = "-define jp2:prcwidth=16383";
